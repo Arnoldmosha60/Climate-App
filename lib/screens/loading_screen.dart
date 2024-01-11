@@ -21,19 +21,26 @@ class _LoadingScreenState extends State<LoadingScreen> {
   }
 
   Future<void> getLocationData() async {
-    Location location = Location();
-    await location.getLocation();
+    // Location location = Location();
+    // await location.getLocation();
 
-    NetworkHelper networkHelper = NetworkHelper(
-        'https://api.openweathermap.org/data/2.5/weather?lat=${location.latitude}&lon=${location.longitude}&appid=$apiKey'
-            as Uri);
-    var weatherData = await networkHelper.getData();
-
-  print("gggggggggggggggggg");
-      Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-        return LocationScreen(locationWeather: weatherData,);
-      }));
-
+    // NetworkHelper networkHelper = NetworkHelper(
+    //     'https://api.openweathermap.org/data/2.5/weather?lat=${location.latitude}&lon=${location.longitude}&appid=$apiKey'
+    //         as Uri);
+    // var weatherData = await networkHelper.getData();
+    var weatherData = {
+      "main": {"temp": 9},
+      "weather": [
+        {"id": 1}
+      ],
+      "name": "demo"
+    };
+    await Future.delayed(Duration(seconds: 12));
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+      return LocationScreen(
+        locationWeather: weatherData,
+      );
+    }));
   }
 
   @override
@@ -52,7 +59,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
         child: SpinKitDoubleBounce(
           color: Colors.white,
           size: 100.0,
-          duration: Duration(seconds: 5),
+          duration: Duration(seconds: 3),
         ),
       ),
     );
